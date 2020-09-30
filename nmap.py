@@ -158,7 +158,7 @@ if domain_answer.lower() == 'y':
     # User selects ports to probe on domain, if applicable.
     port = input('{0}which ports would you like to probe? (Press "Enter" to skip): '
                  .format(white))
-    if port is '':
+    if port == '':
         print()
         print("{0}scan will default to the 1,000 most popular ports.".format(yellow))
         print()
@@ -330,7 +330,7 @@ print()
 # User is asked which ports they would like to probe.
 port = input('{0}Which ports would you like to probe? (Press "Enter" to skip): '
              .format(white))
-if port is '':
+if port == '':
     print()
     print("{0}scan will default to the 1,000 most popular ports.".format(yellow))
     print()
