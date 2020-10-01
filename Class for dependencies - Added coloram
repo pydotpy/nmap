@@ -1,0 +1,55 @@
+import subprocess
+import ipaddress
+import os
+from colorama import *
+init()
+
+red = Fore.RED
+green = Fore.GREEN
+blue =  Fore.BLUE
+yellow = Fore.YELLOW
+white = Fore.WHITE
+
+class Dependencies:
+    
+    
+    def __init__(self, app_dir, app):
+        self.app_dir = app_dir
+        self.app = app
+
+    def check_directory(self): #could be checking for nmap -V instead of directory for flixibilty in case it's elsewhere?
+        check_dir = self.app_dir + self.app
+        if os.path.exists(check_dir):
+            print(green +'[*] ', white + check_dir + green + " located.")
+        else:
+            self.verify()
+
+    def verify(self):
+            verify_app = input('\n' + red + '[!!] ' + \
+                               white + self.app + red + ' is not installed.' + '\n' + \
+                               white + 'Would you like to install' + self.app + ' it? ' + \
+                               green + ' y' + \
+                               white + '/' + \
+                               red + 'n ' + \
+                               white + ':')
+            
+            if verify_app == 'y'.lower():
+                self.install_app()
+
+            elif verify_app == 'n'.lower():
+                self.close()
+            else:
+                print('Invalid entry. Use y to install', self.app, 'or n to exit. Ensure Caps lock is off.' + '\n')
+                self.check_directory()
+                
+    def install_app(self):
+        print('installing', self.app, '...')
+        subprocess.run(['firefox']) #Don't re-install nmap lol
+        #subprocess.run(["sudo", "apt-get", "install", self.app])
+
+    def close(self):
+        print('Exiting...')
+        exit()
+                
+dependencies = Dependencies('/usr/bin/', 'nmapp') #extra p in nmapp for debugging
+dependencies.check_directory() #debugging
